@@ -22,21 +22,21 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 import kotlin.random.Random
 
 class MarkovChain(graph: Graph) {
-    val state: Array<Vertex>
+    val states: Array<Vertex>
     val nameToState: Map<String, Vertex>
-    val transitionMatrix: Array<FloatArray>
+    val transitionMatrix: Array<DoubleArray>
 
     init {
-        state = graph.vertices.toTypedArray()
+        states = graph.vertices.toTypedArray()
         nameToState = graph.nameToVertex.toMap()
-        transitionMatrix = Array(state.size) { FloatArray(state.size) }
+        transitionMatrix = Array(states.size) { DoubleArray(states.size) }
 
         val vertexToIndex = mutableMapOf<Vertex, Int>()
-        state.forEachIndexed { index, vertex ->
+        states.forEachIndexed { index, vertex ->
             vertexToIndex[vertex] = index
         }
 
-        state.forEachIndexed { index1, srcVertex ->
+        states.forEachIndexed { index1, srcVertex ->
             srcVertex.adjacencyList
                 .zip(srcVertex.weightList)
                 .forEach {
@@ -45,7 +45,7 @@ class MarkovChain(graph: Graph) {
 
                     val index2 = vertexToIndex[dstVertex] ?: throw Exception("vertex not in graph")
 
-                    if ((weight < 0.0) or (weight >= 1.0)) {
+                    if ((weight < 0.0) or (weight > 1.0)) {
                         throw Exception("weight is not a probability")
                     }
 
@@ -94,12 +94,12 @@ class MarkovChainBuilder() {
         return this
     }
 
-    fun addTransitionProbability(index1: Int, index2: Int, probability: Float): MarkovChainBuilder {
+    fun addTransitionProbability(index1: Int, index2: Int, probability: Double): MarkovChainBuilder {
         graph.addEdge(index1, index2, probability)
         return this
     }
 
-    fun addTransitionProbability(name1: String, name2: String, probability: Float): MarkovChainBuilder {
+    fun addTransitionProbability(name1: String, name2: String, probability: Double): MarkovChainBuilder {
         graph.addEdge(name1, name2, probability)
         return this
     }
