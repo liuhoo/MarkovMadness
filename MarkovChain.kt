@@ -89,18 +89,18 @@ class MarkovChain(graph: Graph) {
 class MarkovChainBuilder() {
     val graph = Graph()
 
-    fun addVertex(name: String? = null): MarkovChainBuilder {
+    fun addState(name: String? = null): MarkovChainBuilder {
         graph.addVertex(name)
         return this
     }
 
-    fun addEdge(index1: Int, index2: Int, weight: Float): MarkovChainBuilder {
-        graph.addEdge(index1, index2, weight)
+    fun addTransitionProbability(index1: Int, index2: Int, probability: Float): MarkovChainBuilder {
+        graph.addEdge(index1, index2, probability)
         return this
     }
 
-    fun addEdge(name1: String, name2: String, weight: Float): MarkovChainBuilder {
-        graph.addEdge(name1, name2, weight)
+    fun addTransitionProbability(name1: String, name2: String, probability: Float): MarkovChainBuilder {
+        graph.addEdge(name1, name2, probability)
         return this
     }
 
