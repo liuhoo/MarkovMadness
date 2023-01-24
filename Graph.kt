@@ -22,9 +22,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 class Vertex(
     val name: String,
     val adjacencyList: MutableList<Vertex>,
-    val weightList: MutableList<Float>
+    val weightList: MutableList<Double>
 ) {
-    constructor(name: String) : this(name, mutableListOf<Vertex>(), mutableListOf<Float>())
+    constructor(name: String) : this(name, mutableListOf<Vertex>(), mutableListOf<Double>())
 }
 
 class Graph(
@@ -43,14 +43,14 @@ class Graph(
         return this
     }
 
-    fun addEdge(index1: Int, index2: Int, weight: Float): Graph {
+    fun addEdge(index1: Int, index2: Int, weight: Double): Graph {
         vertices[index1].adjacencyList.add(vertices[index2])
         vertices[index2].weightList.add(weight)
 
         return this
     }
 
-    fun addEdge(name1: String, name2: String, weight: Float): Graph {
+    fun addEdge(name1: String, name2: String, weight: Double): Graph {
         val vertex1 = nameToVertex[name1]!!
         val vertex2 = nameToVertex[name2]!!
 
