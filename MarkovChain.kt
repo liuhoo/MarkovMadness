@@ -84,6 +84,10 @@ class MarkovChain(graph: Graph) {
         }
         return transitionTrace.toList()
     }
+
+    fun isTerminalState(state: Vertex): Boolean {
+        return (state.adjacencyList.size == 1) and (state.adjacencyList[0] == state)
+    }
 }
 
 class MarkovChainBuilder() {
